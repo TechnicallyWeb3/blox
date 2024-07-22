@@ -15,20 +15,20 @@ export default function ReferPage() {
 
   useEffect(() => {
     const fetchBloxId = async () => {
-      if (isAuthenticated && user && primaryWallet) {
+      if (isAuthenticated && (user?.email || primaryWallet?.address)) {
         setLoading(true);
         setError(null);
 
         try {
           // Generate Blox ID
           const generateBloxResponse = await axios.post('/api/generateBloxId', {
-            dynamic_id: user.userId,
-            wallet_address: primaryWallet.address,
+            dynamic_id: user?.userId,
+            wallet_address: primaryWallet?.address,
           });
 
           // Save Blox ID
           const saveBloxResponse = await axios.post('/api/saveUserId', {
-            dynamic_id: user.userId,
+            dynamic_id: user?.userId,
             blox_id: generateBloxResponse.data.blox_id,
           });
 
@@ -85,18 +85,18 @@ export default function ReferPage() {
         <Header />
       </div>
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        {isAuthenticated && primaryWallet && user ? (
+        {isAuthenticated && (user?.email || primaryWallet) ? (
           <>
             <div className="p-6 bg-[#333] rounded-lg shadow-main-card">
-              <p className="text-lg font-bold mb-2">Hi! {user.firstName}</p>
+              <p className="text-lg font-bold mb-2">Hi! {user?.firstName}</p>
               <p className="text-lg font-bold mb-2">Your Blox ID:</p>
               <p className="text-lg mb-2">{bloxId}</p>
               <p className="text-lg font-bold mb-2">Your Dynamic ID:</p>
-              <p className="text-lg">{user.userId}</p>
+              <p className="text-lg">{user?.userId}</p>
             </div>
             <div className="p-6 bg-[#333] rounded-lg shadow-main-card">
               <p className="text-lg font-bold mb-2">Your Wallet Address:</p>
-              <p className="text-lg break-all mb-2">{primaryWallet.address}</p>
+              <p className="text-lg break-all mb-2">{primaryWallet?.address}</p>
               <button
                 onClick={handleCopyWalletAddress}
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -157,8 +157,8 @@ export default function ReferPage() {
                     <p className="text-lg mb-2">Upcoming Bonus Tier II: Gold - 1,800 Points</p>
                   </div>
                   <button className="mt-4 px-4 py-2 max-w-xs bg-blue-500 text-white rounded hover:bg-blue-600">
-  Claim
-</button>
+                    Claim
+                  </button>
                 </div>
               </div>
             </div>
