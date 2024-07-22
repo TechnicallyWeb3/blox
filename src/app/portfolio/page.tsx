@@ -7,7 +7,7 @@ import { WalletIcon } from "@dynamic-labs/wallet-book";
 import axios from 'axios';
 import Link from "next/link";
 
-export default function ReferPage() {
+export default function PortfolioPage() {
   const { isAuthenticated, user, primaryWallet } = useDynamicContext();
   const connectedWallets: Wallet = useUserWallets();
   const { tokenBalances, isLoading, isError, error } = useTokenBalances();
