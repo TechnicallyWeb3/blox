@@ -68,10 +68,9 @@ export default function PortfolioPage() {
         {isAuthenticated && (user?.email || primaryWallet) ? (
           <>
             <div className="p-6 bg-[#333] rounded-lg shadow-main-card">
-              <p className="text-lg font-bold mb-2">{user?.username}</p>
-<br />
+              <p className="text-lg font-bold mb-2">Hi! {user?.username}</p>
               <p className="text-lg font-bold mb-2">Your Blox ID:</p>
-              <p className="text-lg mb-2">{bloxId}</p>
+              <p className="text-lg mb-2">{user?.userId}</p>
               <br />
               <p className="text-lg font-bold mt-4">Total Portfolio Balance:</p>
               <p className="text-2xl">{totalBalance}</p>

@@ -6,6 +6,8 @@ import {
   EthereumWalletConnectors,
   EthersExtension
 } from "@/utils/Dynamic";
+import SideNav from "../components/SideNav";
+import { DarkModeProvider } from "../contexts/DarkModeContext";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,19 +25,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <DynamicContextProvider
-          settings={{
-            environmentId: DynamicEnvironmentId,
-            walletConnectors: [EthereumWalletConnectors],
-            walletConnectorExtensions: [EthersExtension],
-            appName: "BLOX",
-            appLogoUrl: "/blox400.jpg", // Updated URL
-            privacyPolicyUrl: "/privacy-policy",
-            termsOfServiceUrl: "/terms-of-service",
-          }}
-        >
-          {children}
-        </DynamicContextProvider>
+        <DarkModeProvider>
+          <DynamicContextProvider
+            settings={{
+              environmentId: DynamicEnvironmentId,
+              walletConnectors: [EthereumWalletConnectors],
+              walletConnectorExtensions: [EthersExtension],
+              appName: "BLOX",
+              appLogoUrl: "/blox400.jpg", // Updated URL
+              privacyPolicyUrl: "/privacy-policy",
+              termsOfServiceUrl: "/terms-of-service",
+            }}
+          >
+            <div className="flex min-h-screen">
+              <SideNav />
+              <main className="flex-1">
+                {children}
+              </main>
+            </div>
+          </DynamicContextProvider>
+        </DarkModeProvider>
       </body>
     </html>
   );

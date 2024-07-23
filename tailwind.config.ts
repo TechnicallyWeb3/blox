@@ -15,7 +15,7 @@ const config: Config = {
       },
       boxShadow: {
         'main-card': '0 6px 15px rgba(0, 128, 255, 0.4), 0 6px 15px rgba(0, 128, 255, 0.4)', // Blueish shadow
-        'rewards-card': '0 4px 12px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(255, 255, 255, 0.3)', // Whitish/blue shadow
+        'rewards-card': '0 4px 12px rgba(0, 0, 0, 1)', // Light black shadow for floating effect
       },
       colors: {
         'custom-blue': '#0099ff', // Optional: for consistency with the shadow color

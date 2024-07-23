@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Header } from "@/components/Header";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import axios from 'axios';
@@ -15,19 +15,19 @@ export default function ReferPage() {
   const { isAuthenticated, user, primaryWallet } = useDynamicContext();
   const [referralData, setReferralData] = useState<ReferralData>({
     directReferrals: 0,
-    indirectReferrals: 0,
-    totalPoints: 0
+    indirectReferrals: 0
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
+  
+  // Refs for carousel
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchReferralData = async () => {
       if (isAuthenticated && user?.userId) {
         setLoading(true);
-
         try {
-          // Fetch referral data
           const response = await axios.post('/api/referrals', { dynamic_id: user.userId });
           setReferralData(response.data);
         } catch (err) {
@@ -37,7 +37,6 @@ export default function ReferPage() {
         }
       }
     };
-
     fetchReferralData();
   }, [isAuthenticated, user]);
 
@@ -46,6 +45,13 @@ export default function ReferPage() {
       navigator.clipboard.writeText(primaryWallet.address);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = direction === 'left' ? -300 : 300;
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
@@ -84,6 +90,54 @@ export default function ReferPage() {
               <p className="text-lg mb-2">Indirect Referrals: {referralData.indirectReferrals}</p>
               <p className="text-lg font-bold mb-2">Total Points:</p>
               <p className="text-lg">{referralData.totalPoints}</p>
+            </div>
+            <div className="p-6 bg-[#333] border-2 border-blue-700 rounded-lg lg:col-span-3 shadow-main-card relative">
+              <button
+                className="arrow arrow-left"
+                onClick={() => scroll('left')}
+              >
+                &lt;
+              </button>
+              <button
+                className="arrow arrow-right"
+                onClick={() => scroll('right')}
+              >
+                &gt;
+              </button>
+              <div ref={carouselRef} className="carousel-container overflow-hidden">
+                <div className="carousel-content">
+                  <div className="p-4 bg-[#444] rounded-lg shadow-rewards-card carousel-item">
+                    <p className="text-lg font-bold mb-2">Tier I: Basic</p>
+                    <p className="text-lg mb-2">Referrals Left To Tier II: Gold - 34</p>
+                    <p className="text-lg mb-2">Points Left To Tier II: Gold - 73.44</p>
+                    <p className="text-lg mb-2">Upcoming Bonus Tier II: Gold - 1,800 Points</p>
+                  </div>
+                  <div className="p-4 bg-[#444] rounded-lg shadow-rewards-card carousel-item">
+                    <p className="text-lg font-bold mb-2">Tier II: Basic</p>
+                    <p className="text-lg mb-2">Referrals Left To Tier III: Diamond - 100</p>
+                    <p className="text-lg mb-2">Points Left To Tier III: Diamond - 250.00</p>
+                    <p className="text-lg mb-2">Upcoming Bonus Tier III: Diamond - 5,000 Points</p>
+                  </div>
+                  <div className="p-4 bg-[#444] rounded-lg shadow-rewards-card carousel-item">
+                    <p className="text-lg font-bold mb-2">Tier III: Diamond</p>
+                    <p className="text-lg mb-2">Referrals Left To Tier IV: Platinum - 150</p>
+                    <p className="text-lg mb-2">Points Left To Tier IV: Platinum - 500.00</p>
+                    <p className="text-lg mb-2">Upcoming Bonus Tier IV: Platinum - 10,000 Points</p>
+                  </div>
+                  <div className="p-4 bg-[#444] rounded-lg shadow-rewards-card carousel-item">
+                    <p className="text-lg font-bold mb-2">Tier IV: Platinum</p>
+                    <p className="text-lg mb-2">Referrals Left To Tier V: Ruby - 200</p>
+                    <p className="text-lg mb-2">Points Left To Tier V: Ruby - 1,000.00</p>
+                    <p className="text-lg mb-2">Upcoming Bonus Tier V: Ruby - 15,000 Points</p>
+                  </div>
+                  <div className="p-4 bg-[#444] rounded-lg shadow-rewards-card carousel-item">
+                    <p className="text-lg font-bold mb-2">Tier V: Ruby</p>
+                    <p className="text-lg mb-2">Referrals Left To Next Tier: N/A</p>
+                    <p className="text-lg mb-2">Points Left To Next Tier: N/A</p>
+                    <p className="text-lg mb-2">Upcoming Bonus Next Tier: N/A</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </>
         ) : (
