@@ -2,10 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default styles */
+aside {
+  /* Width and position will be managed by Tailwind CSS classes */
+  background-color: #f7fafc;
+  border-right: 1px solid #e2e8f0;
+  padding-top: 5rem; /* Add top padding for vertical centering */
+  padding-bottom: 2rem; /* Add bottom padding for vertical centering */
+}
+
+nav {
+  padding: 1rem;
+}
+
+/* Additional styles for the pop-out submenu */
+.nav-item:hover .submenu {
+  display: block;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 1rem 1.5rem; /* Adjust padding for better spacing */
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Dark mode */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --bg-color: #ffffff; /* Light mode background color */
+  --text-color: #000000; /* Light mode text color */
+  --aside-bg: #f7fafc; /* Light mode aside background */
+  --aside-border: #e2e8f0; /* Light mode aside border color */
+}
+
+[data-theme='dark'] {
+  --bg-color: #000000; /* Dark mode background color */
+  --text-color: #ffffff; /* Dark mode text color */
+  --aside-bg: #1a202c; /* Dark mode aside background */
+  --aside-border: #2d3748; /* Dark mode aside border color */
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+aside {
+  background-color: var(--aside-bg);
+  border-right: 1px solid var(--aside-border);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,18 +64,94 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Carousel styles */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-content {
+  display: flex;
+  gap: 1.5rem; /* Adjust the spacing between items as needed */
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 16rem; /* Adjust the width of each item */
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow-left {
+  left: 0;
+}
+
+.arrow-right {
+  right: 0;
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 1025px) {
+  aside {
+    position: fixed;
+    bottom: 0; /* Position fixed to the bottom */
+    left: 0;
+    width: 100%;
+    height: 70px; /* Set specific height */
+    overflow-y: auto; /* Add scroll if content exceeds height */
+    z-index: 10; /* Ensure it's above content */
+  }
+
+  nav {
+    padding: 0.5rem;
+  }
+
+  li {
+    padding: 0.5rem 1rem; /* Adjusted padding for smaller screens */
+    text-align: center; /* Center align text for better readability */
+  }
+
+  button {
+    display: block;
+    margin: 1rem auto;
+  }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 500px) {
+  aside {
+    height: 60px; /* Reduce height further for smaller screens */
+  }
+
+  li {
+    padding: 0.25rem 0.75rem; /* Further adjust padding for very small screens */
+  }
+}
+
+/* Increase icon size */
+svg {
+  font-size: 2.0rem; /* Adjust icon size as needed */
+}
+
+/* Example of defining the icon-collapse class */
+.icon-collapse {
+  font-size: 2.5rem; /* Adjust size as needed */
+  margin: 0.5rem 0; /* Adjust margin to bring icons closer together */
 }
