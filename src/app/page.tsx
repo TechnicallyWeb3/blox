@@ -1,12 +1,46 @@
 "use client";
 
-import Image from "next/image";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import Link from "next/link";
+import { useEffect } from 'react';
 import { Header } from "@/components/Header";
 
 export default function Home() {
   const { isAuthenticated, user } = useDynamicContext();
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      console.log('User object:', user);  // Log the user object for debugging
+
+      const { userId: dynamicId } = user;
+      const bloxId = dynamicId;  // Assuming bloxId is same as dynamicId for now
+
+      // Log the IDs for debugging
+      console.log('dynamicId:', dynamicId);
+      console.log('bloxId:', bloxId);
+
+      // Make an API request to add the user
+      fetch('/api/add-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          dynamic_id: dynamicId,
+          blox_id: bloxId,
+          referral_code: null // or pass a referral code if applicable
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('User added:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  }, [isAuthenticated, user]);
+
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
