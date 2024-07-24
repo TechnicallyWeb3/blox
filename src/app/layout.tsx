@@ -6,7 +6,7 @@ import {
   EthereumWalletConnectors,
   EthersExtension
 } from "@/utils/Dynamic";
-import SideNav from "../components/SideNav";
+
 import { DarkModeProvider } from "../contexts/DarkModeContext";
 import "./globals.css";
 
@@ -38,7 +38,7 @@ export default function RootLayout({
             }}
           >
             <div className="flex min-h-screen">
-              <SideNav />
+              {/* <SideNav /> */}
               <main className="flex-1">
                 {children}
               </main>

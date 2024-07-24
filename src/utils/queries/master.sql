@@ -182,3 +182,63 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE getUserData(
+    IN blox_id_in VARCHAR(255)
+)
+BEGIN
+    SELECT *
+    FROM users
+    WHERE blox_id = blox_id_in;
+END$$
+
+DELIMITER ;
+
+
+-- CALL getReferralData('efac5eac-65e7-48f3-9bbd-296a300f295b')
+DELIMITER $$
+
+CREATE PROCEDURE getReferralData(
+    IN blox_id_in VARCHAR(255)
+)
+BEGIN
+    SELECT *
+    FROM referrals
+    WHERE blox_id = blox_id_in;
+END$$
+
+DELIMITER ;
+
+
+-- CALL getReferralCodeData('efac5eac-65e7-48f3-9bbd-296a300f295b')
+DELIMITER $$
+
+CREATE PROCEDURE getReferralCodeData(
+    IN blox_id_in VARCHAR(255)
+)
+BEGIN
+    SELECT *
+    FROM codes
+    WHERE blox_id = blox_id_in;
+END$$
+
+DELIMITER ;
+
+
+-- CALL getPointData('efac5eac-65e7-48f3-9bbd-296a300f295b')
+DELIMITER $$
+
+CREATE PROCEDURE getPointData(
+    IN blox_id_in VARCHAR(255)
+)
+BEGIN
+    SELECT *
+    FROM points
+    WHERE blox_id = blox_id_in;
+END$$
+
+DELIMITER ;

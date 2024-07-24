@@ -1,4 +1,4 @@
-SELECT * FROM users;
-SELECT * FROM codes;
-SELECT * FROM referrals;
-SELECT * FROM points;
+SELECT * FROM referrals
+-- SELECT * FROM codes;
+-- SELECT * FROM referrals;
+-- SELECT * FROM points;

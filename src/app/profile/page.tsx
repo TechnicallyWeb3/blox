@@ -58,7 +58,7 @@ export default function ProfilePage() {
               <p className="text-lg font-bold mb-2">{user?.username}</p>
               <p className="text-lg font-bold mb-2">{user?.email}</p>
               <p className="text-lg font-bold mb-2">Your Blox ID:</p>
-              <p className="text-lg mb-2">{user?.userId}</p>
+              <p className="text-lg mb-2">{bloxId}</p>
               <p className="text-lg font-bold mb-2">Your Dynamic ID:</p>
               <p className="text-lg">{user?.userId}</p>
             </div>
